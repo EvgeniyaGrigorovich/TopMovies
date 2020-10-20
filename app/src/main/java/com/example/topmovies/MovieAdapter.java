@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -18,6 +19,9 @@ import com.example.topmovies.database.Movie;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> movies;
+    private Consumer<Integer> onPosterClickListener;
+    private OnReachEndListener onReachEndListener;
+
 
     public MovieAdapter() {
         movies = new ArrayList<>();
@@ -28,11 +32,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
+    public void setOnPosterClickListener(Consumer<Integer> onPosterClickListener) {
+        this.onPosterClickListener = onPosterClickListener;
+    }
+
+    interface OnReachEndListener {
+        void onReachEnd();
+    }
+
+    public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
+        this.onReachEndListener = onReachEndListener;
+    }
+
+
     public List<Movie> getMovies() {
         return movies;
     }
 
-    public void addMovies(List<Movie> movies){
+    public void addMovies(List<Movie> movies) {
         this.movies.addAll(movies);
         notifyDataSetChanged();
     }
@@ -48,6 +65,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movies.get(position);
         Picasso.get().load(movie.getPosterPath()).into(holder.imageViewSmallPoster);
+        if (position > movies.size() - 4 && onReachEndListener != null) {
+            onReachEndListener.onReachEnd();
+        }
     }
 
     @Override
@@ -55,12 +75,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder{
+    class MovieViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewSmallPoster;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewSmallPoster = itemView.findViewById(R.id.imageViewSmallPoster);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onPosterClickListener != null) {
+                        onPosterClickListener.accept(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 }
