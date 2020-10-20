@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TopMovies</string>
+    <string name="poster_of_movie">Постер к фильму</string>
+    <string name="most_popular">Самые популярные</string>
+    <string name="topRated">Наиболее рейтинговые</string>
+</resources>
