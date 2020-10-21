@@ -1,6 +1,11 @@
 package com.example.topmovies.database;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "movies")
 public class Movie {
+    @PrimaryKey
     private int id ;
     //количество голосов
     private int voteCount;

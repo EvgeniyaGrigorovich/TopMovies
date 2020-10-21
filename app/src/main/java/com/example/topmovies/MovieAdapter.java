@@ -22,6 +22,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private Consumer<Integer> onPosterClickListener;
     private OnReachEndListener onReachEndListener;
 
+    class MovieViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageViewSmallPoster;
+
+        public MovieViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageViewSmallPoster = itemView.findViewById(R.id.imageViewSmallPoster);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onPosterClickListener != null) {
+                        onPosterClickListener.accept(getAdapterPosition());
+                    }
+                }
+            });
+        }
+    }
 
     public MovieAdapter() {
         movies = new ArrayList<>();
@@ -75,20 +91,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageViewSmallPoster;
 
-        public MovieViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageViewSmallPoster = itemView.findViewById(R.id.imageViewSmallPoster);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onPosterClickListener != null) {
-                        onPosterClickListener.accept(getAdapterPosition());
-                    }
-                }
-            });
-        }
-    }
 }
