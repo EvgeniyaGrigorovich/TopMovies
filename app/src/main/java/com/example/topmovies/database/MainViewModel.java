@@ -22,6 +22,9 @@ public class MainViewModel extends AndroidViewModel {
         movies = database.movieDao().getAllMovies();
     }
 
+    public LiveData<List<Movie>> getMovies() {
+        return movies;
+    }
 
     public void deleteMovie(Movie movie){
        new DeleteMovieTask().execute(movie);

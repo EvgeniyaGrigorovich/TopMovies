@@ -10,13 +10,13 @@ import java.util.List;
 
 @Dao
 public interface MovieDao {
-    @Query("SELECT* FROM MOVIES")
+    @Query("SELECT* FROM movies")
     LiveData<List<Movie>> getAllMovies();
 
-    @Query("SELECT * FROM MOVIES WHERE id ==:movieId")
+    @Query("SELECT * FROM movies WHERE id ==:movieId")
     Movie getMovieById(int movieId);
 
-    @Query("DELETE FROM MOVIES")
+    @Query("DELETE FROM movies")
     void deleteAllMovies();
 
     @Insert
