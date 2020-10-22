@@ -18,6 +18,8 @@ import java.util.concurrent.ExecutionException;
 public class NetworkUtils {
 
     private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
+    private static final String BASE_URL_VIDEOS = "https://api.themoviedb.org/3/movie/%s/videos";
+    private static final String BASE_URL_REVIEWS = "https://api.themoviedb.org/3/movie/%s/reviews";
 
     private static final String PARAMS_API_KEY = "api_key";
     private static final String API_KEY = "d1ec372463ecca247b447ee62705382a";
@@ -35,7 +37,66 @@ public class NetworkUtils {
     public static final int TOP_RATED = 1;
 
 
-    //метод формирует запрос
+    //запрос для отзывов
+    private static URL buildUrlToReviews(int id){
+        URL result = null;
+        Uri uri = Uri.parse(String.format(BASE_URL_REVIEWS, id)).buildUpon()
+                .appendQueryParameter(PARAMS_API_KEY, API_KEY)
+//                .appendQueryParameter(PARAMS_LANGUAGE, LANGUAGE_VALUE)
+                .build();
+        try {
+            result = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static JSONObject getJSONForReviews(int id) {
+        JSONObject result = null;
+        URL uRl = buildUrlToReviews(id);
+        try {
+            result = new JSONLoadTask().execute(uRl).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    //запрос для трейлеров
+    private static URL buildUrlToVideos(int id){
+        URL result = null;
+        Uri uri = Uri.parse(String.format(BASE_URL_VIDEOS, id)).buildUpon()
+                .appendQueryParameter(PARAMS_API_KEY, API_KEY)
+                .appendQueryParameter(PARAMS_LANGUAGE, LANGUAGE_VALUE)
+                .build();
+        try {
+            result = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static JSONObject getJSONForVideos(int id) {
+        JSONObject result = null;
+        URL uRl = buildUrlToVideos(id);
+        try {
+            result = new JSONLoadTask().execute(uRl).get();
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    //запрос для фильмов
     private static URL buildUR(int sortBy, int page) {
         URL result = null;
         String methodOfSort;
@@ -104,4 +165,6 @@ public class NetworkUtils {
         }
         return result;
     }
+
+
 }

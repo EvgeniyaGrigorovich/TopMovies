@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewReleaseDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewRating" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewOriginalTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -29,6 +31,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
         <ImageView
+            android:layout_margin="8dp"
             android:id="@+id/imageViewBigPoster"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,10 +42,12 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewLableTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_title"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavo" />
 
@@ -54,6 +59,7 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -62,22 +68,27 @@
             app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavo" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewLableOriginalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_original_title"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewLabelRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_rating"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewOriginalTitle" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewRating"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -87,30 +98,41 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewOriginalTitle" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewLabelRealiseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_realise_date"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRating" />
 
         <TextView
+            android:layout_margin="8dp"
             android:id="@+id/textViewLabelDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/text_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewReleaseDate" />
 
         <TextView
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="32dp"
             android:id="@+id/textViewOverView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewLabelDescription" />
 
         <ImageView
+            android:layout_margin="8dp"
             android:id="@+id/imageViewAddToFavo"
             android:layout_width="@dimen/size_of_star"
             android:layout_height="@dimen/size_of_star"
@@ -121,6 +143,23 @@
             app:srcCompat="@drawable/star"
             android:onClick="onClickChangeFavourite"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTrailers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewOverView"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewReviews"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewTrailers"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

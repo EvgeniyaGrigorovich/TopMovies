@@ -12,4 +12,5 @@
     <string name="delete_from_favourite">Фильм удален из избранного</string>
     <string name="item_main">Главная</string>
     <string name="item_favourite">Избранное</string>
+    <string name="launch_trailer">Запустить трейлер</string>
 </resources>

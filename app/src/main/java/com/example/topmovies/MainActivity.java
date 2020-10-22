@@ -19,6 +19,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.topmovies.adapters.MovieAdapter;
 import com.example.topmovies.database.MainViewModel;
 import com.example.topmovies.database.Movie;
 import com.example.topmovies.utils.JSONUtils;
@@ -27,6 +28,8 @@ import com.example.topmovies.utils.NetworkUtils;
 import org.json.JSONObject;
 
 import java.util.List;
+
+import static com.example.topmovies.R.id.switchSort;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,11 +49,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initPosters();
+        openDescriptionOfMovie();
         updateMovies();
         initSwitch();
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 movieAdapter.setMovies(movies);
             }
         });
-
     }
 
     public void initPosters(){
@@ -92,13 +93,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewPoster.setLayoutManager(new GridLayoutManager(this, 2));
         movieAdapter = new MovieAdapter();
         recyclerViewPoster.setAdapter(movieAdapter);
-        movieAdapter.setOnPosterClickListener(position -> {
-          Movie movie = movieAdapter.getMovies().get(position);
-          Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-          intent.putExtra("id", movie.getId());
-          startActivity(intent);
-
-                });
 
         movieAdapter.setOnReachEndListener(new MovieAdapter.OnReachEndListener() {
             @Override
@@ -108,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void initSwitch(){
+    private void initSwitch(){
         textViewPopularity = findViewById(R.id.textViewPopularity);
         textViewTopRated = findViewById(R.id.textViewTopRated);
 
@@ -157,5 +151,13 @@ public class MainActivity extends AppCompatActivity {
                 mainViewModel.insertMovie(movie);
             }
         }
+    }
+    public void openDescriptionOfMovie(){
+        movieAdapter.setOnPosterClickListener(position -> {
+            Movie movie = movieAdapter.getMovies().get(position);
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra("id", movie.getId());
+            startActivity(intent);
+        });
     }
 }

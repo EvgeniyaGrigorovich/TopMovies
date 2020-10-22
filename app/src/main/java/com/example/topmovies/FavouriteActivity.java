@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.topmovies.adapters.MovieAdapter;
 import com.example.topmovies.database.FavouriteMovie;
 import com.example.topmovies.database.MainViewModel;
 import com.example.topmovies.database.Movie;
@@ -33,6 +33,34 @@ public class FavouriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favourite);
 
         recyclerViewFavouriteMovies = findViewById(R.id.recyclerViewFavouriteMovies);
+        addFavouriteMovies();
+        openDescriptionOfFavouriteMovie();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mainmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.itemMain:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.itemFavourite:
+                Intent intent1ToFavourite = new Intent(this, FavouriteActivity.class);
+                startActivity(intent1ToFavourite);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addFavouriteMovies() {
         adapter = new MovieAdapter();
         recyclerViewFavouriteMovies.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerViewFavouriteMovies.setAdapter(adapter);
@@ -48,29 +76,15 @@ public class FavouriteActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.mainmenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+    private void openDescriptionOfFavouriteMovie(){
+        adapter.setOnPosterClickListener(position -> {
+            Movie movie = adapter.getMovies().get(position);
+            Intent intent = new Intent(FavouriteActivity.this, DetailActivity.class);
+            intent.putExtra("id", movie.getId());
+            startActivity(intent);
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch (id){
-            case R.id.itemMain:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.itemFavourite:
-                Intent intent1ToFavourite = new Intent(this, FavouriteActivity.class);
-                startActivity(intent1ToFavourite);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+        });
     }
 }

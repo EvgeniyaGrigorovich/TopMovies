@@ -1,4 +1,4 @@
-package com.example.topmovies;
+package com.example.topmovies.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.topmovies.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewSmallPoster = itemView.findViewById(R.id.imageViewSmallPoster);
+            imageViewSmallPoster = (ImageView) itemView.findViewById(R.id.imageViewSmallPoster);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -52,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.onPosterClickListener = onPosterClickListener;
     }
 
-    interface OnReachEndListener {
+    public interface OnReachEndListener {
         void onReachEnd();
     }
 
