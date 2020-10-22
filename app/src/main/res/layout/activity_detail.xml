@@ -14,7 +14,7 @@
             android:id="@+id/textViewReleaseDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/textViewRating" />
@@ -23,7 +23,7 @@
             android:id="@+id/textViewOriginalTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
@@ -42,9 +42,9 @@
             android:id="@+id/textViewLableTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Название: "
+            android:text="@string/text_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewBigPoster" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavo" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineCenter"
@@ -57,23 +57,23 @@
             android:id="@+id/textViewTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewBigPoster" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAddToFavo" />
 
         <TextView
             android:id="@+id/textViewLableOriginalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Оригинальное название: "
+            android:text="@string/text_original_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
         <TextView
-            android:id="@+id/textViewLableRating"
+            android:id="@+id/textViewLabelRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Рейтинг: "
+            android:text="@string/text_rating"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewOriginalTitle" />
 
@@ -81,16 +81,16 @@
             android:id="@+id/textViewRating"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/textViewOriginalTitle" />
 
         <TextView
-            android:id="@+id/textViewLableReliseDate"
+            android:id="@+id/textViewLabelRealiseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Дата релиза: "
+            android:text="@string/text_realise_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewRating" />
 
@@ -98,7 +98,7 @@
             android:id="@+id/textViewLabelDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Описание:"
+            android:text="@string/text_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewReleaseDate" />
 
@@ -106,9 +106,20 @@
             android:id="@+id/textViewOverView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewLabelDescription" />
+
+        <ImageView
+            android:id="@+id/imageViewAddToFavo"
+            android:layout_width="@dimen/size_of_star"
+            android:layout_height="@dimen/size_of_star"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewBigPoster"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewBigPoster"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBigPoster"
+            app:srcCompat="@drawable/star"
+            android:onClick="onClickChangeFavourite"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
