@@ -1,11 +1,14 @@
 package com.example.topmovies.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "movies")
 public class Movie {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int uniqueId;
+
     private int id ;
     //количество голосов
     private int voteCount;
@@ -27,7 +30,8 @@ public class Movie {
     //дата релиза
     private String releaseDate;
 
-    public Movie(int id, int voteCount, String title, String originalTitle, String overview, String posterPath, String bigPosterPath, String backDropPass, double voteAverage, String releaseDate) {
+    public Movie(int uniqueId, int id, int voteCount, String title, String originalTitle, String overview, String posterPath, String bigPosterPath, String backDropPass, double voteAverage, String releaseDate) {
+        this.uniqueId = uniqueId;
         this.id = id;
         this.voteCount = voteCount;
         this.title = title;
@@ -40,7 +44,27 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
+    @Ignore
+    public Movie( int id, int voteCount, String title, String originalTitle, String overview, String posterPath, String bigPosterPath, String backDropPass, double voteAverage, String releaseDate) {
+        this.id = id;
+        this.voteCount = voteCount;
+        this.title = title;
+        this.originalTitle = originalTitle;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.bigPosterPath = bigPosterPath;
+        this.backDropPass = backDropPass;
+        this.voteAverage = voteAverage;
+        this.releaseDate = releaseDate;
+    }
 
+    public int getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(int uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 
     public void setBigPosterPath(String bigPosterPath) {
         this.bigPosterPath = bigPosterPath;

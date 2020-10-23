@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import java.net.ContentHandler;
 
-@Database(entities =  {Movie.class, FavouriteMovie.class}, version = 2, exportSchema = false)
+@Database(entities =  {Movie.class, FavouriteMovie.class}, version = 3, exportSchema = false)
 public abstract class MovieDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "movies.db";

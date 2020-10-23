@@ -1,7 +1,13 @@
 package com.example.topmovies.utils;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.content.AsyncTaskLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,15 +36,76 @@ public class NetworkUtils {
     private static final String PARAMS_SORT_BY = "sort_by";
     private static final String SORT_BY_POPULARITY = "popularity.desc";
     private static final String SORT_BY_TO_RATED = "vote_average.desc";
+    private static final String PARAMS_MI_VOTE_COUNT = "vote_count.gte";
+    private static final String PARAMS_MI_VOTE_COUNT_VALUE = "10000";
 
     private static final String PARAMS_PAGE = "page";
 
     public static final int POPULARITY = 0;
     public static final int TOP_RATED = 1;
 
+    public static class JSONLoader extends AsyncTaskLoader<JSONObject> {
+
+        private Bundle bundle;
+
+        public JSONLoader(@NonNull Context context, Bundle bundle) {
+            super(context);
+            this.bundle = bundle;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+            forceLoad();
+        }
+
+        @Nullable
+        @Override
+        public JSONObject loadInBackground() {
+            if (bundle == null) {
+                return null;
+            }
+            //получить url откуда будут загружаться данные
+            String urlAsString = bundle.getString("url");
+            URL url = null;
+            try {
+                url = new URL(urlAsString);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            JSONObject result = null;
+            if (url == null) {
+                return null;
+            }
+
+            HttpURLConnection connection = null;
+            StringBuilder stringBuilder = new StringBuilder();
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = reader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line);
+                    line = reader.readLine();
+                }
+                result = new JSONObject(stringBuilder.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+            return result;
+        }
+    }
 
     //запрос для отзывов
-    private static URL buildUrlToReviews(int id){
+    private static URL buildUrlToReviews(int id) {
         URL result = null;
         Uri uri = Uri.parse(String.format(BASE_URL_REVIEWS, id)).buildUpon()
                 .appendQueryParameter(PARAMS_API_KEY, API_KEY)
@@ -68,7 +135,7 @@ public class NetworkUtils {
 
 
     //запрос для трейлеров
-    private static URL buildUrlToVideos(int id){
+    public static URL buildUrlToVideos(int id) {
         URL result = null;
         Uri uri = Uri.parse(String.format(BASE_URL_VIDEOS, id)).buildUpon()
                 .appendQueryParameter(PARAMS_API_KEY, API_KEY)
@@ -97,7 +164,7 @@ public class NetworkUtils {
     }
 
     //запрос для фильмов
-    private static URL buildUR(int sortBy, int page) {
+    public static URL buildUR(int sortBy, int page) {
         URL result = null;
         String methodOfSort;
         if (sortBy == POPULARITY) {
@@ -110,6 +177,7 @@ public class NetworkUtils {
                 .appendQueryParameter(PARAMS_LANGUAGE, LANGUAGE_VALUE)
                 .appendQueryParameter(PARAMS_SORT_BY, methodOfSort)
                 .appendQueryParameter(PARAMS_PAGE, Integer.toString(page))
+                .appendQueryParameter(PARAMS_MI_VOTE_COUNT, PARAMS_MI_VOTE_COUNT_VALUE)
                 .build();
         try {
             result = new URL(uri.toString());
@@ -152,19 +220,5 @@ public class NetworkUtils {
         }
     }
 
-    public static JSONObject getJSONFromNetwork(int sortBy, int page) {
-        JSONObject result = null;
-        URL uRl = buildUR(sortBy, page);
-        try {
-            result = new JSONLoadTask().execute(uRl).get();
-
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-
 }
+

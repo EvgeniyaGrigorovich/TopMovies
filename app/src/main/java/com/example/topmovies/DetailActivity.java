@@ -88,6 +88,7 @@ public class DetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

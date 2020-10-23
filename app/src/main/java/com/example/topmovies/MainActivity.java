@@ -1,10 +1,13 @@
 package com.example.topmovies;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,11 +30,12 @@ import com.example.topmovies.utils.NetworkUtils;
 
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.List;
 
 import static com.example.topmovies.R.id.switchSort;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<JSONObject> {
 
     private static final String LOG_TAG = "MyLogs: ";
 
@@ -42,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewPopularity;
     private MainViewModel mainViewModel;
 
+    private static final int LOADER_ID = 8817;
+    private LoaderManager loaderManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         initPosters();
         openDescriptionOfMovie();
@@ -64,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.itemMain:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -77,7 +85,40 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateMovies(){
+    @NonNull
+    @Override
+    public Loader<JSONObject> onCreateLoader(int id, @Nullable Bundle args) {
+        NetworkUtils.JSONLoader jsonLoader = new NetworkUtils.JSONLoader(this, args);
+        return jsonLoader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<JSONObject> loader, JSONObject data) {
+        List<Movie> movies = JSONUtils.getMoviesFromJSON(data);
+        if (movies != null && !movies.isEmpty()) {
+            mainViewModel.deleteAllMovies();
+            for (Movie movie : movies) {
+                mainViewModel.insertMovie(movie);
+            }
+        }
+        loaderManager.destroyLoader(LOADER_ID);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<JSONObject> loader) {
+
+    }
+
+    private void downloadData(int methodOfSort, int page) {
+        loaderManager = LoaderManager.getInstance(this);
+        URL url = NetworkUtils.buildUR(methodOfSort, page);
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url.toString());
+        loaderManager.restartLoader(LOADER_ID, bundle, this);
+
+    }
+
+    public void updateMovies() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         LiveData<List<Movie>> moviesFromLiveData = mainViewModel.getMovies();
         moviesFromLiveData.observe(this, new Observer<List<Movie>>() {
@@ -88,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void initPosters(){
+    public void initPosters() {
         recyclerViewPoster = findViewById(R.id.recyclerViewPosters);
         recyclerViewPoster.setLayoutManager(new GridLayoutManager(this, 2));
         movieAdapter = new MovieAdapter();
@@ -102,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initSwitch(){
+    private void initSwitch() {
         textViewPopularity = findViewById(R.id.textViewPopularity);
         textViewTopRated = findViewById(R.id.textViewTopRated);
 
@@ -127,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
         switchSort.setChecked(true);
     }
 
-    private void setMethodOfSort(boolean isTopRated){
+    private void setMethodOfSort(boolean isTopRated) {
         int methodOfSort;
-        if (isTopRated){
+        if (isTopRated) {
             textViewTopRated.setTextColor(getResources().getColor(R.color.colorAccent));
             textViewPopularity.setTextColor(getResources().getColor(R.color.white_color));
             methodOfSort = NetworkUtils.TOP_RATED;
@@ -139,20 +180,10 @@ public class MainActivity extends AppCompatActivity {
             textViewPopularity.setTextColor(getResources().getColor(R.color.colorAccent));
             methodOfSort = NetworkUtils.POPULARITY;
         }
-      downloadData(methodOfSort, 1);
+        downloadData(methodOfSort, 1);
     }
 
-    private void downloadData(int methodOfSort, int page){
-        JSONObject jsonObject = NetworkUtils.getJSONFromNetwork(methodOfSort, 1);
-        List<Movie> movies = JSONUtils.getMoviesFromJSON(jsonObject);
-        if (movies != null && !movies.isEmpty()){
-            mainViewModel.deleteAllMovies();
-            for (Movie movie:movies){
-                mainViewModel.insertMovie(movie);
-            }
-        }
-    }
-    public void openDescriptionOfMovie(){
+    public void openDescriptionOfMovie() {
         movieAdapter.setOnPosterClickListener(position -> {
             Movie movie = movieAdapter.getMovies().get(position);
             Intent intent = new Intent(this, DetailActivity.class);

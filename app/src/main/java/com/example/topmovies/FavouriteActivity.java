@@ -84,7 +84,6 @@ public class FavouriteActivity extends AppCompatActivity {
             Intent intent = new Intent(FavouriteActivity.this, DetailActivity.class);
             intent.putExtra("id", movie.getId());
             startActivity(intent);
-
         });
     }
 }
