@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 
 import static com.example.topmovies.R.id.switchSort;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static int page = 1;
     private static boolean isLoading = false;
     private int methodOfSort;
+    private static String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         progressBarLoading = findViewById(R.id.progressBarLoading);
+        lang = Locale.getDefault().getLanguage();
 
         initPosters();
         openDescriptionOfMovie();
@@ -139,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void downloadData(int methodOfSort, int page) {
         loaderManager = LoaderManager.getInstance(this);
-        URL url = NetworkUtils.buildUR(methodOfSort, page);
+        URL url = NetworkUtils.buildUR(methodOfSort, page, lang);
         Bundle bundle = new Bundle();
         bundle.putString("url", url.toString());
         loaderManager.restartLoader(LOADER_ID, bundle, this);

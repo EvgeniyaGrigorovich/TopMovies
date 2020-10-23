@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">TopMovies</string>
-    <string name="poster_of_movie">Постер к фильму</string>
-    <string name="most_popular">Самые популярные</string>
-    <string name="topRated">Наиболее рейтинговые</string>
-    <string name="text_description">Описание:</string>
-    <string name="text_realise_date">Дата релиза:</string>
-    <string name="text_rating">Рейтинг:</string>
-    <string name="text_original_title">Оригинальное название:</string>
-    <string name="text_title">Название:</string>
-    <string name="add_to_favourite">Фильм добавлен в избранное</string>
-    <string name="delete_from_favourite">Фильм удален из избранного</string>
-    <string name="item_main">Главная</string>
-    <string name="item_favourite">Избранное</string>
-    <string name="launch_trailer">Запустить трейлер</string>
+    <string name="app_name" translatable="false">TopMovies</string>
+    <string name="poster_of_movie" translatable="false">Poster</string>
+    <string name="most_popular" translatable="false">Most popular</string>
+    <string name="topRated" translatable="false">Top rated</string>
+    <string name="text_description" translatable="false">Description:</string>
+    <string name="text_realise_date" translatable="false">"Date of release:"</string>
+    <string name="text_rating" translatable="false">Rating:</string>
+    <string name="text_original_title" translatable="false">Original title:</string>
+    <string name="text_title" translatable="false">Title:</string>
+    <string name="add_to_favourite" translatable="false">Movie added to favorites</string>
+    <string name="delete_from_favourite" translatable="false">" Movie removed from favorites"</string>
+    <string name="item_main" translatable="false">Home</string>
+    <string name="item_favourite" translatable="false">Favorites</string>
+    <string name="launch_trailer" translatable="false">" Launch trailer"</string>
 </resources>

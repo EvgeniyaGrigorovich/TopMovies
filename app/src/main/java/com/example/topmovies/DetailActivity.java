@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView imageViewBigPoster;
@@ -50,6 +52,8 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView recyclerViewReviews;
     private TrailerAdapter trailerAdapter;
     private ReviewAdapter reviewAdapter;
+    private ScrollView scrollViewInfo;
+    private static String lang;
     List<Trailer> trailers;
 
 
@@ -58,6 +62,8 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        lang = Locale.getDefault().getLanguage();
 
         initView();
         getMovieId();
@@ -71,7 +77,7 @@ public class DetailActivity extends AppCompatActivity {
         recyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
         reviewAdapter = new ReviewAdapter();
         recyclerViewReviews.setAdapter(reviewAdapter);
-        JSONObject jsonObject = NetworkUtils.getJSONForReviews(movie.getId());
+        JSONObject jsonObject = NetworkUtils.getJSONForReviews(movie.getId(), lang);
         List<Review> reviews = JSONUtils.getReviewsFromJSON(jsonObject);
         reviewAdapter.setReviews(reviews);
     }
@@ -80,7 +86,7 @@ public class DetailActivity extends AppCompatActivity {
         recyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this));
         trailerAdapter = new TrailerAdapter();
         recyclerViewTrailers.setAdapter(trailerAdapter);
-        JSONObject jsonObject = NetworkUtils.getJSONForVideos(movie.getId());
+        JSONObject jsonObject = NetworkUtils.getJSONForVideos(movie.getId(), lang);
         trailers = JSONUtils.getTrailerFromJSON(jsonObject);
         trailerAdapter.setTrailers(trailers);
         trailerAdapter.setOnTrailerClickListener(url -> {
@@ -122,6 +128,10 @@ public class DetailActivity extends AppCompatActivity {
         imageViewStar = findViewById(R.id.imageViewAddToFavo);
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
         recyclerViewReviews = findViewById(R.id.recyclerViewReviews);
+        scrollViewInfo = findViewById(R.id.scrollViewInfo);
+        scrollViewInfo.smoothScrollTo(0, 0);
+
+
     }
 
     public void getMovieId() {

@@ -31,7 +31,6 @@ public class NetworkUtils {
     private static final String API_KEY = "d1ec372463ecca247b447ee62705382a";
 
     private static final String PARAMS_LANGUAGE = "language";
-    private static final String LANGUAGE_VALUE = "ru-RU";
 
     private static final String PARAMS_SORT_BY = "sort_by";
     private static final String SORT_BY_POPULARITY = "popularity.desc";
@@ -121,11 +120,11 @@ public class NetworkUtils {
     }
 
     //запрос для отзывов
-    private static URL buildUrlToReviews(int id) {
+    private static URL buildUrlToReviews(int id, String lang) {
         URL result = null;
         Uri uri = Uri.parse(String.format(BASE_URL_REVIEWS, id)).buildUpon()
                 .appendQueryParameter(PARAMS_API_KEY, API_KEY)
-//                .appendQueryParameter(PARAMS_LANGUAGE, LANGUAGE_VALUE)
+                .appendQueryParameter(PARAMS_LANGUAGE, lang)
                 .build();
         try {
             result = new URL(uri.toString());
@@ -135,9 +134,9 @@ public class NetworkUtils {
         return result;
     }
 
-    public static JSONObject getJSONForReviews(int id) {
+    public static JSONObject getJSONForReviews(int id, String lang) {
         JSONObject result = null;
-        URL uRl = buildUrlToReviews(id);
+        URL uRl = buildUrlToReviews(id, lang);
         try {
             result = new JSONLoadTask().execute(uRl).get();
 
@@ -151,11 +150,11 @@ public class NetworkUtils {
 
 
     //запрос для трейлеров
-    public static URL buildUrlToVideos(int id) {
+    public static URL buildUrlToVideos(int id, String lang) {
         URL result = null;
         Uri uri = Uri.parse(String.format(BASE_URL_VIDEOS, id)).buildUpon()
                 .appendQueryParameter(PARAMS_API_KEY, API_KEY)
-                .appendQueryParameter(PARAMS_LANGUAGE, LANGUAGE_VALUE)
+                .appendQueryParameter(PARAMS_LANGUAGE, lang)
                 .build();
         try {
             result = new URL(uri.toString());
@@ -165,9 +164,9 @@ public class NetworkUtils {
         return result;
     }
 
-    public static JSONObject getJSONForVideos(int id) {
+    public static JSONObject getJSONForVideos(int id, String lang) {
         JSONObject result = null;
-        URL uRl = buildUrlToVideos(id);
+        URL uRl = buildUrlToVideos(id, lang);
         try {
             result = new JSONLoadTask().execute(uRl).get();
 
@@ -180,7 +179,7 @@ public class NetworkUtils {
     }
 
     //запрос для фильмов
-    public static URL buildUR(int sortBy, int page) {
+    public static URL buildUR(int sortBy, int page, String lang) {
         URL result = null;
         String methodOfSort;
         if (sortBy == POPULARITY) {
@@ -190,7 +189,7 @@ public class NetworkUtils {
         }
         Uri uri = Uri.parse(BASE_URL).buildUpon()
                 .appendQueryParameter(PARAMS_API_KEY, API_KEY)
-                .appendQueryParameter(PARAMS_LANGUAGE, LANGUAGE_VALUE)
+                .appendQueryParameter(PARAMS_LANGUAGE, lang)
                 .appendQueryParameter(PARAMS_SORT_BY, methodOfSort)
                 .appendQueryParameter(PARAMS_PAGE, Integer.toString(page))
                 .appendQueryParameter(PARAMS_MI_VOTE_COUNT, PARAMS_MI_VOTE_COUNT_VALUE)
