@@ -44,7 +44,19 @@ public class NetworkUtils {
     public static final int POPULARITY = 0;
     public static final int TOP_RATED = 1;
 
+
+
     public static class JSONLoader extends AsyncTaskLoader<JSONObject> {
+
+        public OnStartLoadingListener onStartLoadingListener;
+
+        public interface OnStartLoadingListener {
+            void onStartLoading();
+        }
+
+        public void setOnStartLoadingListener(OnStartLoadingListener onStartLoadingListener) {
+            this.onStartLoadingListener = onStartLoadingListener;
+        }
 
         private Bundle bundle;
 
@@ -56,6 +68,10 @@ public class NetworkUtils {
         @Override
         protected void onStartLoading() {
             super.onStartLoading();
+            if (onStartLoadingListener !=null){
+                onStartLoadingListener.onStartLoading();
+            }
+
             forceLoad();
         }
 
