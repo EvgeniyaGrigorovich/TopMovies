@@ -1,4 +1,4 @@
-package com.example.topmovies.database;
+package com.evgen.topmovies.database;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;

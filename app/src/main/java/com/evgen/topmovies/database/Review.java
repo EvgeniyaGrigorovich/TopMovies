@@ -1,4 +1,4 @@
-package com.example.topmovies.database;
+package com.evgen.topmovies.database;
 
 public class Review {
     private String author;

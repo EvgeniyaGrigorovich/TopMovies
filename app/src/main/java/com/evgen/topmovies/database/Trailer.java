@@ -1,4 +1,4 @@
-package com.example.topmovies.database;
+package com.evgen.topmovies.database;
 
 public class Trailer {
     private String key;

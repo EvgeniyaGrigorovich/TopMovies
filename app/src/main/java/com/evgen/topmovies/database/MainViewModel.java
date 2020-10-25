@@ -1,7 +1,6 @@
-package com.example.topmovies.database;
+package com.evgen.topmovies.database;
 
 import android.app.Application;
-import android.app.AsyncNotedAppOp;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;

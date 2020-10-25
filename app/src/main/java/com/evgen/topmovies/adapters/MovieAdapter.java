@@ -1,4 +1,4 @@
-package com.example.topmovies.adapters;
+package com.evgen.topmovies.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.topmovies.R;
+import com.evgen.topmovies.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.topmovies.database.Movie;
+import com.evgen.topmovies.database.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 

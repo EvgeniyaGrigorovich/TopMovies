@@ -1,8 +1,7 @@
-package com.example.topmovies;
+package com.evgen.topmovies;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,15 +18,15 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.topmovies.adapters.ReviewAdapter;
-import com.example.topmovies.adapters.TrailerAdapter;
-import com.example.topmovies.database.FavouriteMovie;
-import com.example.topmovies.database.MainViewModel;
-import com.example.topmovies.database.Movie;
-import com.example.topmovies.database.Review;
-import com.example.topmovies.database.Trailer;
-import com.example.topmovies.utils.JSONUtils;
-import com.example.topmovies.utils.NetworkUtils;
+import com.evgen.topmovies.adapters.ReviewAdapter;
+import com.evgen.topmovies.adapters.TrailerAdapter;
+import com.evgen.topmovies.database.FavouriteMovie;
+import com.evgen.topmovies.database.MainViewModel;
+import com.evgen.topmovies.database.Movie;
+import com.evgen.topmovies.database.Review;
+import com.evgen.topmovies.database.Trailer;
+import com.evgen.topmovies.utils.JSONUtils;
+import com.evgen.topmovies.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -130,8 +129,6 @@ public class DetailActivity extends AppCompatActivity {
         recyclerViewReviews = findViewById(R.id.recyclerViewReviews);
         scrollViewInfo = findViewById(R.id.scrollViewInfo);
         scrollViewInfo.smoothScrollTo(0, 0);
-
-
     }
 
     public void getMovieId() {
@@ -146,7 +143,7 @@ public class DetailActivity extends AppCompatActivity {
     private void setViewValue() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         movie = mainViewModel.getMovieById(id);
-        Picasso.get().load(movie.getBigPosterPath()).into(imageViewBigPoster);
+        Picasso.get().load(movie.getBigPosterPath()).placeholder(R.drawable.placeholder).into(imageViewBigPoster);
         textViewTitle.setText(movie.getTitle());
         textViewOriginalTitle.setText(movie.getOriginalTitle());
         textViewRating.setText(Double.toString(movie.getVoteAverage()));

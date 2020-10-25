@@ -1,4 +1,4 @@
-package com.example.topmovies;
+package com.evgen.topmovies;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.topmovies.adapters.MovieAdapter;
-import com.example.topmovies.database.FavouriteMovie;
-import com.example.topmovies.database.MainViewModel;
-import com.example.topmovies.database.Movie;
+import com.evgen.topmovies.adapters.MovieAdapter;
+import com.evgen.topmovies.database.FavouriteMovie;
+import com.evgen.topmovies.database.MainViewModel;
+import com.evgen.topmovies.database.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

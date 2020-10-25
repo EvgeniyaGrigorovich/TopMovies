@@ -1,4 +1,4 @@
-package com.example.topmovies;
+package com.evgen.topmovies;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,21 +22,18 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.topmovies.adapters.MovieAdapter;
-import com.example.topmovies.database.MainViewModel;
-import com.example.topmovies.database.Movie;
-import com.example.topmovies.utils.JSONUtils;
-import com.example.topmovies.utils.NetworkUtils;
+import com.evgen.topmovies.adapters.MovieAdapter;
+import com.evgen.topmovies.database.MainViewModel;
+import com.evgen.topmovies.database.Movie;
+import com.evgen.topmovies.utils.JSONUtils;
+import com.evgen.topmovies.utils.NetworkUtils;
 
 import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
-
-import static com.example.topmovies.R.id.switchSort;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<JSONObject> {
 

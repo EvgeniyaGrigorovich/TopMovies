@@ -1,4 +1,4 @@
-package com.example.topmovies;
+package com.evgen.topmovies;
 
 import org.junit.Test;
 

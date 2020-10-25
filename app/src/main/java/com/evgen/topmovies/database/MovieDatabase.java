@@ -1,12 +1,10 @@
-package com.example.topmovies.database;
+package com.evgen.topmovies.database;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
-import java.net.ContentHandler;
 
 @Database(entities =  {Movie.class, FavouriteMovie.class}, version = 3, exportSchema = false)
 public abstract class MovieDatabase extends RoomDatabase {

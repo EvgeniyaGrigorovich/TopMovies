@@ -1,4 +1,4 @@
-package com.example.topmovies.utils;
+package com.evgen.topmovies.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -7,9 +7,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.topmovies.database.Movie;
-import com.example.topmovies.database.Review;
-import com.example.topmovies.database.Trailer;
+import com.evgen.topmovies.database.Movie;
+import com.evgen.topmovies.database.Review;
+import com.evgen.topmovies.database.Trailer;
 
 public class JSONUtils {
     public static final String BASE_POSTER_URL = "https://image.tmdb.org/t/p/";

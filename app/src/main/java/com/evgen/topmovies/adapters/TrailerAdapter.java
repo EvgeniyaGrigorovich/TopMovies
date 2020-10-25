@@ -1,4 +1,4 @@
-package com.example.topmovies.adapters;
+package com.evgen.topmovies.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.topmovies.R;
-import com.example.topmovies.database.Trailer;
+import com.evgen.topmovies.R;
+import com.evgen.topmovies.database.Trailer;
 
 import java.util.List;
 import java.util.function.Consumer;

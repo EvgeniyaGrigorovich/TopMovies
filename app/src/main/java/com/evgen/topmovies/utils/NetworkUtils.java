@@ -1,4 +1,4 @@
-package com.example.topmovies.utils;
+package com.evgen.topmovies.utils;
 
 import android.content.Context;
 import android.net.Uri;
